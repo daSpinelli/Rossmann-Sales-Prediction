@@ -1,11 +1,11 @@
 import pickle
 import pandas as pd
 from flask import Flask, request, Response
-from rossmann.Rossmann import Rossmann
+from aux_class.Rossmann import Rossmann
 import os
 
 # Loading model
-model = pickle.load(open('model/model_rossmann.pkl', 'rb'))
+model = pickle.load(open('models/model_rossmann.pkl', 'rb'))
 
 # Initialize API
 app = Flask(__name__)

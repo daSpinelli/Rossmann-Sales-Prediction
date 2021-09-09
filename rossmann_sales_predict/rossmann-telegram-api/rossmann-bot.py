@@ -5,25 +5,19 @@ from flask import Flask, request, Response
 import os
 
 # constants
-TOKEN = '1888164288:AAHW4Ld9udMvezpqXXyrI-8jrZpw5SmDBeY'
-
-# localhost run command
-## ssh -R 80:localhost:5000 nokey@localhost.run
+TOKEN = '1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4'
 
 # # Info about the Bot
-# https://api.telegram.org/bot1888164288:AAHW4Ld9udMvezpqXXyrI-8jrZpw5SmDBeY/getMe
+# https://api.telegram.org/bot1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4/getMe
         
 # # get updates
-# https://api.telegram.org/bot1888164288:AAHW4Ld9udMvezpqXXyrI-8jrZpw5SmDBeY/getUpdates
-
-# # webhook
-# https://api.telegram.org/bot1888164288:AAHW4Ld9udMvezpqXXyrI-8jrZpw5SmDBeY/setWebhook?url=https://687a9069fe25.ngrok.io
+# https://api.telegram.org/bot1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4/getUpdates
 
 # # webhook Heroku
-# https://api.telegram.org/bot1888164288:AAHW4Ld9udMvezpqXXyrI-8jrZpw5SmDBeY/setWebhook?url=https://rossmann-predict-bot.herokuapp.com
+# https://api.telegram.org/bot1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4/setWebhook?url=https://rossmann-predict-bot.herokuapp.com
         
 # # send messages
-# https://api.telegram.org/bot1888164288:AAHW4Ld9udMvezpqXXyrI-8jrZpw5SmDBeY/sendMessage?chat_id=1105720401&text=Hi!
+# https://api.telegram.org/bot1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4/sendMessage?chat_id=1105720401&text=Hi!
 
 def send_message(chat_id, text):
     url = 'https://api.telegram.org/bot{}/'.format( TOKEN ) 
@@ -61,7 +55,7 @@ def load_dataset(store_id):
 
 def predict(data):
     # API Call
-    url = 'https://sales-predict-rossmann.herokuapp.com/rossmann/predict'
+    url = 'https://das-rossmann-prediction.herokuapp.com/rossmann/predict'
     header = {'Content-type': 'application/json'}
     data = data
 
@@ -104,11 +98,15 @@ def index():
                 
                 # prediction
                 d1 = predict(data)
+                
                 # calculation
                 d2 = d1[['store', 'prediction']].groupby('store').sum().reset_index()
 
                 # send message
-                msg = 'Store Number {} will sell R${:,.2f} in the next 6 weeks'.format(d2['store'].values[0], d2['prediction'].values[0] )
+                msg = 'Store Number {} will sell R${:,.2f} in the next 6 weeks'.format(
+                    d2['store'].values[0],
+                    d2['prediction'].values[0]
+                )
                 send_message( chat_id, msg )
                 return Response('Ok', status=200)
                 
