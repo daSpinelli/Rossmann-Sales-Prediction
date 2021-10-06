@@ -158,16 +158,16 @@ class Rossmann(object):
         ## 5.2. Rescaling
 
         # competition distance: robust scaler (it has outliers)
-        df5['competition_distance'] = self.competition_distance_scaler.fit_transform(df5[['competition_distance']].values)
+        df5['competition_distance'] = self.competition_distance_scaler.transform(df5[['competition_distance']].values)
 
         # year: min max scaler (it has not relevant outliers)
-        df5['year'] = self.year_scaler.fit_transform(df5[['year']].values)
+        df5['year'] = self.year_scaler.transform(df5[['year']].values)
 
         # competition time month: robust scaler (it has outliers)
-        df5['competition_time_month'] = self.competition_time_month_scaler.fit_transform(df5[['competition_time_month']].values)
+        df5['competition_time_month'] = self.competition_time_month_scaler.transform(df5[['competition_time_month']].values)
 
         # promo time week: min max scaler (it has not relevant outliers)
-        df5['promo_time_week'] = self.promo_time_week_scaler.fit_transform(df5[['promo_time_week']].values)
+        df5['promo_time_week'] = self.promo_time_week_scaler.transform(df5[['promo_time_week']].values)
 
         
         ## 5.3. Transform
@@ -177,7 +177,7 @@ class Rossmann(object):
         df5 = pd.get_dummies(df5, prefix=['state_holiday'], columns=['state_holiday'])
 
         # store_type: label encoder (it has no relation between the levels of the variable)
-        df5['store_type'] = self.store_type_scaler.fit_transform(df5['store_type'])
+        df5['store_type'] = self.store_type_scaler.transform(df5['store_type'])
 
         # assortment: ordinal encoder (it has ordinal relation between the levels[extended > extra > basic])
         assortment_dict = {'basic': 1, 'extra': 2, 'extended': 3}

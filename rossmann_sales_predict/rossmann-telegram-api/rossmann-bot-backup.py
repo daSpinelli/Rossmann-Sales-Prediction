@@ -1,12 +1,9 @@
 import pandas as pd
 import json
 import requests
+from flask import Flask, request, Response
 import os
 import seaborn as sns
-import telegram
-import matplotlib.ticker as mticker
-
-from flask import Flask, request, Response
 
 # constants
 TOKEN = '1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4'
@@ -23,14 +20,56 @@ TOKEN = '1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4'
 # # send messages
 # https://api.telegram.org/bot1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4/sendMessage?chat_id=1105720401&text=Hi!
 
-def send_msg(chat_id, text, _bot, parse='HTML'):
-    _bot.send_message(chat_id, text, parse_mode=parse)
+def send_message(chat_id, text):
+    parse = 'HTML'
+    url = 'https://api.telegram.org/bot{}/sendMessage'.format( TOKEN )
+    
+    message = {
+        'text': text,
+        'parse_mode': 'HTML',
+        'disable_web_page_preview': True,
+        'chat_id': chat_id
+    }
+    
+    header = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+    
+    print('Text: {}'.format(text))
+    r = requests.post(url, json=message, headers=header)
+    print('Status Code {}'.format(r.status_code))
+    print('Chat ID: {}'.format(chat_id))
 
     return None
 
-def send_img(chat_id, img_path, caption, _bot):
-    _bot.send_photo(chat_id, open(img_path, 'rb'), caption=caption)
-    print('Sending the file {}'.format(img_path))
+def send_photo(chat_id, photo_path, caption):
+    url = 'https://api.telegram.org/bot{}/sendPhoto'.format( TOKEN )
+    
+    chart_img = os.path.expanduser('~/{}'.format(photo_path))
+    
+    message = {
+        'photo': 'https://lh3.googleusercontent.com/t8jzr310rC5obgwRHRljXVYqpVt_LwPzoBoBknYxU9QH4sDPlItjYN_IGNbDIaK6d89pVC7XxGM87-QypJ9CmgHXSA=w640-h400-e365-rj-sc0x00ffffff',
+        'caption': caption,
+        'chat_id': chat_id
+    }
+    
+    header = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+    
+    f = os.path.isfile(chart_img)
+    if not f:
+        print('Não salvou!, {}'.format(chart_img))
+    else:
+        print('Salvou, {}'.format(chart_img))
+
+    
+    r = requests.post(url, json=message, headers=header)
+    print('Photo path: {}'.format(chart_img))
+    print('Status Code {}\nResponse {}\nText {}'.format(r.status_code, r.reason, r.text))
+    print('Chat ID: {}'.format(chat_id))
     
     return None
 
@@ -73,32 +112,20 @@ def predict(data):
 
     return d1
 
-def draw_chart(predicted_data, x_axis, y_axis, title, x_label, y_label, img_name):
-        tick_format = '{:,.0f}K'
-        
+def get_graph(predicted_data, x_axis, y_axis, title, x_label, y_label, img_name):
         fig = sns.barplot(x=x_axis, y=y_axis, data=predicted_data)
         fig.set_title(title)
         fig.set_xlabel(x_label)
         fig.set_ylabel(y_label)
-        
-        fig.yaxis.set_major_locator(mticker.MaxNLocator(8))
-        yticks = fig.get_yticks()
-        fig.yaxis.set_major_locator(mticker.FixedLocator(yticks))
-        
-        
-        ylabels = [tick_format.format(x) for x in yticks / 1000]
-        fig.set_yticklabels(ylabels)
-        
+#         ylabels = ['{:,.0f}'.format(x) + 'K' for x in fig.get_yticks()/1000]
+#         fig.set_yticklabels(ylabels)
         fig.figure.savefig(img_name)
-        
-        print('Saving the file {}'.format(img_name))
-        print('='*20)
-        print('Params:\nx_axis: {}\ny_axis: {}\ntitle: {}\nx_label: {}\ny_label {}\nshape: {}'.format(x_axis, y_axis, title, x_label, y_label, predicted_data.shape))
-        print('='*20)
-        
-        for d in predicted_data.values:
-            print(d[0])
-        
+        f = os.path.exists(img_name)
+        if not f:
+            print('Não salvou!')
+        else:
+            print('Salvou')
+
         return None
 
 def parse_message(message):
@@ -142,8 +169,6 @@ Make good use of these data! With great powers comes great responsabilities!'
     
     return msg_help
 
-bot = telegram.Bot(token=TOKEN)
-
 # API initialize
 app = Flask(__name__)
 
@@ -170,18 +195,12 @@ def index():
         
         # filtered prediction
         if (type(command) == list) | (type(command) == int):
-            
             # reshape if there is only one store_id and convert list from string to int
             if type(command) == list:
-                
                 store_id = [int(x) for x in command]
-                
             else:
-                
                 store_id = [command,]
-            
-            send_msg(chat_id, 'Calculating. Please wait...', bot)
-            
+                
             # loading data
             data = load_dataset(store_id)
 
@@ -194,34 +213,34 @@ def index():
                 d2 = d1[['store', 'prediction']].groupby('store').sum().reset_index()
 
                 for i in range(len(d2)):
-                    
                 # send message
                     msg = 'Store Number {} will sell R${:,.2f} in the next 6 weeks'.format(
                         d2.loc[i, 'store'],
                         d2.loc[i, 'prediction']
                     )
-                    send_msg(chat_id, msg, bot)
+                    send_message( chat_id, msg )
+                    print('return message: {}'.format(msg))
+                    #return Response('Ok', status=200)
                 
             else:
-                
-                send_msg(chat_id, 'Store ID do not exist', bot)
+                send_message(chat_id, 'Store ID do not exist')
+                #return Response('Ok', status=200)
 
         # start
         elif (command == 'start'):
-            
             msg_help = get_help()
-            send_msg(chat_id, msg_help, bot)
+            send_message(chat_id, msg_help)
+            #return Response('Ok', status=200)
             
         # help
         elif (command == 'help'):
-            
             msg_help = get_help(False)
-            send_msg(chat_id, msg_help, bot)
+            send_message(chat_id, msg_help)
+            #return Response('Ok', status=200)
 
         # top prediction
-        elif command == 'toppredictions':     
-            
-            send_msg(chat_id, 'Calculating. Please wait...', bot)
+        elif command == 'toppredictions':
+            print('top predictions')            
             
             # loading data
             data = load_dataset(full=True)
@@ -233,81 +252,43 @@ def index():
             
             d3 = d2.nlargest(5, 'prediction')
             
-            # chart definitions
+            # graph definitions
             x_ax = 'store'
             y_ax = 'prediction'
-            chart_title = 'Rossmann Store highest predictions'
+            graph_title = 'Rossmann Sales Store Highest Predictions'
             x_lbl = 'Store ID'
-            y_lbl = 'Prediction for next 6 weeks (Unit: K)'
-            image_path = './top5_prediction.png'
+            y_lbl = 'Predicion for next 6 weeks (Unit: K)'
+            image_path = 'top5_prediction.png'
             
-            draw_chart(
+            get_graph(
                 d3,
                 x_axis=x_ax,
                 y_axis=y_ax,
-                title=chart_title,
+                title=graph_title,
                 x_label=x_lbl,
                 y_label=y_lbl,
                 img_name=image_path
             )
                         
-            send_img(chat_id, image_path, chart_title, bot)
+            send_photo(chat_id, image_path, graph_title)
+            #return Response('Ok', status=200)
 
         # top sales
         elif command == 'topsales':
-            
-            send_msg(chat_id, 'Calculating. Please wait...', bot)
-            
-            # loading data
-            data = load_dataset(full=True)
-            
-            # prediction
-            d1 = predict(data)
-            
-            d2 = d1[['store', 'prediction']].groupby('store').sum().reset_index()
-            
-            # get sales for the predicted ones
-            df_sales_raw = pd.read_csv('train.csv')            
-            df_sales_raw.columns = [col.lower() for col in df_sales_raw.columns]
-            store_predicted = d2['store'].unique()
-            df_sales = df_sales_raw.loc[df_sales_raw['store'].isin(store_predicted), ['store', 'sales']].groupby('store').sum().reset_index()
-
-            d3 = pd.merge(d2, df_sales, on='store', how='left')
-            d3['total'] = d3['prediction'] + d3['sales']
-            
-            d3 = d3.nlargest(5, 'total')
-            
-            # chart definitions
-            x_ax = 'store'
-            y_ax = 'total'
-            chart_title = 'Rossmann Store highest sales + predictions'
-            x_lbl = 'Store ID'
-            y_lbl = 'Total Sales + Prediction (Unit: K)'
-            image_path = './top5_sales.png'
-            
-            draw_chart(
-                d3,
-                x_axis=x_ax,
-                y_axis=y_ax,
-                title=chart_title,
-                x_label=x_lbl,
-                y_label=y_lbl,
-                img_name=image_path
-            )
-                        
-            send_img(chat_id, image_path, chart_title, bot)
+            print('top sales')
+            send_message(chat_id, 'top 5 sales')
+            #return Response('Ok', status=200)            
             
         else:
-            
             msg_help = get_help(greeting = False)
-            send_msg(chat_id, 'This is an invalid command!', bot)
-            send_msg(chat_id, msg_help, bot)
+            send_message(chat_id, 'This is an invalid command!')
+            send_message(chat_id, msg_help)
+            #return Response('Ok', status=200)
         
-        send_msg(chat_id, 'Done!', bot)
+        send_message(chat_id, 'Done!')
         return Response('Ok', status=200)
         
     else:
-        
         return '<h1> Rossmann Telegram BOT</h1>'
 
 if __name__ == '__main__':
