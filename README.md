@@ -1,91 +1,145 @@
-# rossmann_sales_predict
+![rossmann_logo](https://user-images.githubusercontent.com/68928802/137392417-f320ce54-6198-475a-9e15-ec0f3d4b162d.jpg)
 
-Project developed in python using machine learning to predict the next 6 months of sales of the Rossmann stores.
 
-## Getting started
+# Rossmann Store Sales Prediction
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+##### Disclaimer 1
+This is a fictitious context done with portfolio purpose. All the characters were created, as well the business problem.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+##### Disclaimer 2
+The data was published in a [kaggle competition](https://www.kaggle.com/c/rossmann-store-sales/overview).
 
-## Add your files
+##### Disclaimer 3
+This project is part of the [Comunidade DS](https://sejaumdatascientist.com/inscricao-lives-comunidade-ds).
 
-- [ ] [Create](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+___
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/daspinelli/rossmann_sales_predict.git
-git branch -M main
-git push -uf origin main
-```
+## Context
 
-## Integrate with your tools
+Rossmann is one of the largest drug store chains in Europe with 50k+ of employees and 4k+ stores.
+However, the growth shown during the annual meeting where the regional managers present the sales plan for the next year to the CEO it is not compatible with Rossmann's greatness. So, in order to establish a new metric to measure the sales performance, the CEO asked the data manager for a sales prediction of the next year. As the growth projected by the sales teams is just a mean of the past sales.
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/user/project/integrations/)
+But, after the kick-off meeting with the CEO where more questions about the problem were made we agreed that a full year prediction do not give us time to react a bad news. And also, the results will be reported quarterly, what makes a full year prediction useless. Therefore, was decided that a 6 weeks prediction will fit better into this scenario. It will be possible to notice significant variances and act to minimize the lost if necessary.
 
-## Collaborate with your team
+## Solution
 
-- [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+So, from now on a challenge is settled, create this prediction to be used as a guideline to the annual sales plan. It will avoid losts and increase the gain with early decisions.
 
-## Test and Deploy
+### Planning
 
-Use the built-in continuous integration in GitLab.
+##### Input
 
-- [ ] [Get started with GitLab CI/CD](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://docs.gitlab.com/ee/user/clusters/agent/)
+Three dataset:
+- train.csv -> a dataset with historical sales
+- store.csv -> suplemental info about the stores
+- test.csv  -> a dataset with data about the next days
 
-***
+##### Output
 
-# Editing this README
+Easy info with the prediction for the next 6 weeks
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://gitlab.com/-/experiment/new_project_readme_content:a96a2458255a1968c68e8e86f68f3063?https://www.makeareadme.com/) for this template.
+##### Tasks
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+1. Data Description:
+  - Some basic info about the dataset such as dimensions, data types and also missing values
+  - outliers check out
+  - statistical description
+  - Missing values treatment:
+![Screenshot from 2021-10-13 20-37-50](https://user-images.githubusercontent.com/68928802/137227124-f107afed-948c-4700-918c-49482940499e.png)
 
-## Name
-Choose a self-explaining name for your project.
+2. Feature Engineering:
+  - Mind map of hypothesis
+  - feature creation
+3. Exploratory Data Analysis:
+  - Univatiated to check the features distribution
+  - Bivariated, this step allowed me to check the behaviour of the features when working with the sales
+    - It is also possible to validate the hypothesis created with the mind map
+    - Some important hypothesis:
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Store with close competition should sell less -> **FALSE**
+![Screenshot from 2021-10-13 21-28-09](https://user-images.githubusercontent.com/68928802/137230723-1d8568a2-df46-43af-a1e8-50b81dcb5a3d.png)
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Store should sell more after the 10th day of each month -> **TRUE**      
+![Screenshot from 2021-10-13 21-13-53](https://user-images.githubusercontent.com/68928802/137230048-df39c14e-a605-4591-a13d-2caa03fddf8d.png) 
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Store should sell more after the 10th day of each month -> **TRUE**      
+![Screenshot from 2021-10-13 21-18-39](https://user-images.githubusercontent.com/68928802/137230050-33aeb018-e2b9-4c96-861c-a2b3e4ce4163.png)
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+4. Data Preparation
+  - Data rescale with robust and min max scaler with pickle, to avoid data leak in production
+  - Label Encoding
+  - Nature Transform of time features
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+5. Feature Selection
+  - Data split into 6 weeks blocks to make easier the cross training
+  - feature selection with Botura
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+6. Machine Learning Modeling
+  - Some modelings were tested:
+    - Average model (baseline)
+    - Linear regression
+    - Linear regression regularized (Lasso)
+    - Random forest regressor
+    - XGBoost regressor
+  - Metrics used to measure performance
+    - MAE
+    - MAPE
+    - RMSE
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Even though XGBoost is has not best performance it was chosen because is smaller and flexible when it comes to fine tuning.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+![Screenshot from 2021-10-13 21-49-03](https://user-images.githubusercontent.com/68928802/137232262-7f3066de-06a0-4996-98a3-656a341f7f33.png)
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+7. Fine Tunning
+  - Random Search was used.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+Result after the fine tuning
+![Screenshot from 2021-10-13 22-08-41](https://user-images.githubusercontent.com/68928802/137233626-13a8b0b4-9207-4aa0-98f2-82e5ae1b32ee.png)
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+8. Error Translation
 
-## License
-For open source projects, say how it is licensed.
+  - Top 5 predictions 
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+![Screenshot from 2021-10-14 09-34-31](https://user-images.githubusercontent.com/68928802/137318676-be260f4f-161e-4a32-85d7-0ebd68354295.png) 
 
+  - Predictions and sales along the 6 weeks and error rate, where y axis = 1 is like 0% of error 
+
+![Screenshot from 2021-10-14 09-35-41](https://user-images.githubusercontent.com/68928802/137318682-6d58e530-b50b-4049-849e-1fb8b0ec2f28.png)
+
+  - Absolute error dispersion 
+
+![Screenshot from 2021-10-14 09-36-01](https://user-images.githubusercontent.com/68928802/137318685-3c180e88-4b94-4798-9e96-e3762358f5bb.png)
+
+
+9. Telegram Bot
+  - To access it, just click below 
+
+[<img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/>](https://t.me/das_rossmann_bot)
+
+  - How to use it:
+    - choose one of the command options below and send it to the bot
+
+![Screenshot from 2021-09-29 21-20-13](https://user-images.githubusercontent.com/68928802/137385998-b978c56b-4776-4599-993b-888aa8109a3d.png)
+
+
+## Next Steps
+- Algorithm
+  - In the next cycle new features such as holidays will be tested.
+  - Also, a random forest regressor will be tested.
+- Business
+  - CEO and sales managers will follow this numbers closely and act accordingly with the real sales numbers.
+
+## Lessons Learned
+The main learning with this project is that it is important to plan the solution step by step. Respecting the order things should happen. Take a deep breath and understand the problem before start coding is the key. 
+
+I also learned that a project is made in cicles, I will not create the perfect solution at the right first try.
+Technically, I learned how to analyse data and prepare it to the modeling step. To do it, I used python and its libraries such as Pandas, Numpy, Matplotlib, Seaborn and many others. 
+
+Modeling also needs attention, as it can overfit or even underfit if you do not read the errors carefully. Trying different regressor models allow me to compare then and see what I can improve in next cycle.
+And last but not least, deploy this solution with flask, heroku and telegram bot was a very satisfying way to finish this great project.
+
+
+Thank you for reading this project.
+Any doubt or suggestion, just contact me:
+
+[<img alt="Denny Profile" src="https://img.shields.io/badge/-LinkedIn-blue?style=for-the-badge&logo=linkedin"/>](https://linkedin.com/in/dennydaspinelli)
