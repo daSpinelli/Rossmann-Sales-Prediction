@@ -36,7 +36,8 @@ Three dataset:
 
 ##### Output
 
-Easy info with the prediction for the next 6 weeks
+Easy info with the prediction for the next 6 weeks.
+This output will be provided through a [telegram bot](https://github.com/daSpinelli/Rossmann-Prediction-API) that consumes an [API](https://github.com/daSpinelli/Rossmann-Prediction-API) developed in Python hosted in a cloud app.
 
 ##### Tasks
 
