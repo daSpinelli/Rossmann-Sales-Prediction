@@ -73,8 +73,7 @@ def predict(data):
 
     return d1
 
-def draw_chart(predicted_data, x_axis, y_axis, title, x_label, y_label, img_name):
-        tick_format = '{:,.0f}K'
+def draw_chart(predicted_data, x_axis, y_axis, title, x_label, y_label, img_name, divisor, tick_format='{:,.0f}'):
         
         fig = sns.barplot(x=x_axis, y=y_axis, data=predicted_data)
         fig.set_title(title)
@@ -86,7 +85,7 @@ def draw_chart(predicted_data, x_axis, y_axis, title, x_label, y_label, img_name
         fig.yaxis.set_major_locator(mticker.FixedLocator(yticks))
         
         
-        ylabels = [tick_format.format(x) for x in yticks / 1000]
+        ylabels = [tick_format.format(x) for x in yticks / divisor]
         fig.set_yticklabels(ylabels)
         
         fig.figure.savefig(img_name)
@@ -167,7 +166,7 @@ def index():
         
         if type(command) != int:
             command = command.split(',') if command.find(',') >= 0 else command
-        
+        print('Comando: {}'.format(command))
         # filtered prediction
         if (type(command) == list) | (type(command) == int):
             
@@ -240,6 +239,8 @@ def index():
             x_lbl = 'Store ID'
             y_lbl = 'Prediction for next 6 weeks (Unit: K)'
             image_path = './top5_prediction.png'
+            div=1000
+            t_format='{:,.0f}K'
             
             draw_chart(
                 d3,
@@ -248,7 +249,9 @@ def index():
                 title=chart_title,
                 x_label=x_lbl,
                 y_label=y_lbl,
-                img_name=image_path
+                img_name=image_path,
+                divisor=div,
+                tick_format=t_format
             )
                         
             send_img(chat_id, image_path, chart_title, bot)
@@ -267,7 +270,7 @@ def index():
             d2 = d1[['store', 'prediction']].groupby('store').sum().reset_index()
             
             # get sales for the predicted ones
-            df_sales_raw = pd.read_csv('train.csv')            
+            df_sales_raw = pd.read_csv('train.csv')          
             df_sales_raw.columns = [col.lower() for col in df_sales_raw.columns]
             store_predicted = d2['store'].unique()
             df_sales = df_sales_raw.loc[df_sales_raw['store'].isin(store_predicted), ['store', 'sales']].groupby('store').sum().reset_index()
@@ -284,6 +287,8 @@ def index():
             x_lbl = 'Store ID'
             y_lbl = 'Total Sales + Prediction (Unit: K)'
             image_path = './top5_sales.png'
+            div=1000000
+            t_format='{:,.0f}mi'
             
             draw_chart(
                 d3,
@@ -292,7 +297,9 @@ def index():
                 title=chart_title,
                 x_label=x_lbl,
                 y_label=y_lbl,
-                img_name=image_path
+                img_name=image_path,
+                divisor=div,
+                tick_format=t_format
             )
                         
             send_img(chat_id, image_path, chart_title, bot)
