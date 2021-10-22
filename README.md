@@ -115,7 +115,7 @@ Result after the fine tuning
 9. Telegram Bot
   - To access it, just click below 
 
-[<img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/>](https://t.me/das_rossmann_bot)
+[<img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/>](https://t.me/das_rossmann_prediction_bot)
 
   - How to use it:
     - choose one of the command options below and send it to the bot
