@@ -19,11 +19,11 @@ ___
 Rossmann is one of the largest drug store chains in Europe with 50k+ of employees and 4k+ stores.
 However, the growth shown during the annual meeting where the regional managers present the sales plan for the next year to the CEO it is not compatible with Rossmann's greatness. So, in order to establish a new metric to measure the sales performance, the CEO asked the data manager for a sales prediction of the next year. As the growth projected by the sales teams is just a mean of the past sales.
 
-But, after the kick-off meeting with the CEO where more questions about the problem were made we agreed that a full year prediction do not give us time to react a bad news. And also, the results will be reported quarterly, what makes a full year prediction useless. Therefore, was decided that a 6 weeks prediction will fit better into this scenario. It will be possible to notice significant variances and act to minimize the lost if necessary.
+But, after the kick-off meeting with the CEO where more questions about the problem were made we agreed that a full year prediction do not give us time to react to bad news. And also, the results will be reported quarterly, what makes a full year prediction useless. Therefore, was decided that a 6 weeks prediction will fit better into this scenario. It will be possible to notice significant variances and act to minimize the loss if necessary.
 
 ## Solution
 
-So, from now on a challenge is settled, create this prediction to be used as a guideline to the annual sales plan. It will avoid losts and increase the gain with early decisions.
+So, from now on a challenge is settled, create this prediction to be used as a guideline to the annual sales plan. It will not only avoid loss but also increase the gain with early decisions.
 
 ### Planning
 
