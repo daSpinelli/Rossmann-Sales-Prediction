@@ -7,21 +7,11 @@ import telegram
 import matplotlib.ticker as mticker
 
 from flask import Flask, request, Response
+from credentials import credentials
 
 # constants
-TOKEN = '1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4'
-
-# # Info about the Bot
-# https://api.telegram.org/bot1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4/getMe
-        
-# # get updates
-# https://api.telegram.org/bot1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4/getUpdates
-
-# # webhook Heroku
-# https://api.telegram.org/bot1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4/setWebhook?url=https://rossmann-predict-bot.herokuapp.com
-        
-# # send messages
-# https://api.telegram.org/bot1964746514:AAGmnUoclbp8R1NczhX38vt8_4Da10u4uW4/sendMessage?chat_id=1105720401&text=Hi!
+cred = credentials()
+TOKEN = cred.TOKEN
 
 def send_msg(chat_id, text, _bot, parse='HTML'):
     _bot.send_message(chat_id, text, parse_mode=parse)
