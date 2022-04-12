@@ -1,146 +1,157 @@
-![rossmann_logo](https://user-images.githubusercontent.com/68928802/137392417-f320ce54-6198-475a-9e15-ec0f3d4b162d.jpg)
-
+![https://user-images.githubusercontent.com/68928802/137392417-f320ce54-6198-475a-9e15-ec0f3d4b162d.jpg](https://user-images.githubusercontent.com/68928802/137392417-f320ce54-6198-475a-9e15-ec0f3d4b162d.jpg)
 
 # Rossmann Store Sales Prediction
 
-##### Disclaimer 1
-This is a fictitious context done with portfolio purpose. All the characters were created, as well the business problem.
+### Disclaimer 1
 
-##### Disclaimer 2
-The data was published in a [kaggle competition](https://www.kaggle.com/c/rossmann-store-sales/overview).
+Este é um contexto fictício criado para portifólio. Todos os personagens foram criados assim como o problema de negócio.
 
-##### Disclaimer 3
-This project is part of the [Comunidade DS](https://sejaumdatascientist.com/inscricao-lives-comunidade-ds).
+### Disclaimer 2
 
-___
+Os dados foram publicados em uma [competição do kaggle](https://www.kaggle.com/c/rossmann-store-sales/overview).
 
-## Context
+### Disclaimer 3
 
-Rossmann is one of the largest drug store chains in Europe with 50k+ of employees and 4k+ stores.
-However, the growth shown during the annual meeting where the regional managers present the sales plan for the next year to the CEO it is not compatible with Rossmann's greatness. So, in order to establish a new metric to measure the sales performance, the CEO asked the data manager for a sales prediction of the next year. As the growth projected by the sales teams is just a mean of the past sales.
+O projeto é parte da [Comunidade DS](https://sejaumdatascientist.com/inscricao-lives-comunidade-ds).
 
-But, after the kick-off meeting with the CEO where more questions about the problem were made we agreed that a full year prediction do not give us time to react to bad news. And also, the results will be reported quarterly, what makes a full year prediction useless. Therefore, was decided that a 6 weeks prediction will fit better into this scenario. It will be possible to notice significant variances and act to minimize the loss if necessary.
+---
 
-## Solution
+## Contexto
 
-So, from now on a challenge is settled, create this prediction to be used as a guideline to the annual sales plan. It will not only avoid loss but also increase the gain with early decisions.
+A Rossmann é uma das maiores redes de drogarias na Europa com mais de 50k+ funcionários e 4k+ lojas.
+Contudo, o crescimento mostrado durante a reunião anual onde os gerentes regionais apresentam ao CEO o plano de vendas para o próximo ano não é compatível com a grandeza da Rossmann. Então, para estabelecer uma nova métrica para medir a performance das vendas, o CEO pediu aos gerentes uma previsão de vendas para o próximo trimestre. Atualmente, o crescimento projetado pelos times de vendas é apenas uma média semanal das vendas passadas.
 
-### Planning
+Mas, após a reunião inicial com o CEO onde mais questões sobre o problema foram levantadas, houve um concenso de que a previsão de um trimestre inteiro não dá tempo de reação perante más notícias já que os resultados são reportados a cada trimestre. Portanto, foi decidido que uma previsão de 6 semanas se encaixará melhor neste cenário. Assim, será possível notar variações significativas e agir para minimizar perdas caso necessário.
 
-##### Input
+## Solução
 
-Three dataset:
-- train.csv -> a dataset with historical sales
-- store.csv -> suplemental info about the stores
-- test.csv  -> a dataset with data about the next days
+Então, a partir de agora o desafio foi lançado, criar um modelo de previsão para ser usado como guia para o plano de vendas anual. Este modelo não só evitará perdas como também aumentará o ganho com tomadas de decisões mais cedo.
 
-##### Output
+### Planejamento
 
-Easy info with the prediction for the next 6 weeks.
-This output will be provided through a [telegram bot](https://github.com/daSpinelli/Rossmann-Prediction-API) that consumes an [API](https://github.com/daSpinelli/Rossmann-Prediction-API) developed in Python hosted in a cloud app.
+### Entrada
 
-##### Tasks
+Três datasets (conjunto de dados):
 
-1. Data Description:
-  - Some basic info about the dataset such as dimensions, data types and also missing values
-  - outliers check out
-  - statistical description
-  - Missing values treatment:
-![Screenshot from 2021-10-13 20-37-50](https://user-images.githubusercontent.com/68928802/137227124-f107afed-948c-4700-918c-49482940499e.png)
+- train.csv -> dados históricos de vendas
+- store.csv -> informação complementar das lojas
+- test.csv -> informação sobre os próximos dias das lojas
 
-2. Feature Engineering:
-  - Mind map of hypothesis
-  - feature creation
-3. Exploratory Data Analysis:
-  - Univatiated to check the features distribution
-  - Bivariated, this step allowed me to check the behaviour of the features when working with the sales
-    - It is also possible to validate the hypothesis created with the mind map
-    - Some important hypothesis:
+### Saída
 
-Store with close competition should sell less -> **FALSE**
-![Screenshot from 2021-10-13 21-28-09](https://user-images.githubusercontent.com/68928802/137230723-1d8568a2-df46-43af-a1e8-50b81dcb5a3d.png)
+Informação com formatação simples e direta contendo a previsão para as próximas 6 semanas.
+Essa saída será providenciada através de um [bot no telegram](https://github.com/daSpinelli/Rossmann-Prediction-API) que consome uma [API](https://github.com/daSpinelli/Rossmann-Prediction-API) desenvolvida em Python e hospedada em um aplicativo na núvem.
 
-Store should sell more after the 10th day of each month -> **TRUE**      
-![Screenshot from 2021-10-13 21-13-53](https://user-images.githubusercontent.com/68928802/137230048-df39c14e-a605-4591-a13d-2caa03fddf8d.png) 
+### Tarefas
 
-Store should sell more after the 10th day of each month -> **TRUE**      
-![Screenshot from 2021-10-13 21-18-39](https://user-images.githubusercontent.com/68928802/137230050-33aeb018-e2b9-4c96-861c-a2b3e4ce4163.png)
+1. Descrição dos dados:
+- Algumas informações básicas sobre o conjunto de dados como dimenões, tipos de dados e valores nulos
+- Detecção de outliers
+- Estatística descritiva
+- Tratamento de valores nulos:
+    
+    ![https://user-images.githubusercontent.com/68928802/137227124-f107afed-948c-4700-918c-49482940499e.png](https://user-images.githubusercontent.com/68928802/137227124-f107afed-948c-4700-918c-49482940499e.png)
+    
+1. Feature engineering:
+- Mapa mental de hipóteses
+- Criação de features
+1. Análise exploratória de dados:
+- Univariada para checar a distribuição das features
+- Bivariada, este passo permite checar o comportamento das features quando em função das vendas
+    - Aqui também é possível validar as hipóteses criadas no mapa mental
+    - Algumas hipóteses à destacar:
 
-4. Data Preparation
-  - Data rescale with robust and min max scaler with pickle, to avoid data leak in production
-  - Label Encoding
-  - Nature Transform of time features
+Lojas com competidores próximos vendem menos ->
 
-5. Feature Selection
-  - Data split into 6 weeks blocks to make easier the cross training
-  - feature selection with Botura
+**FALSO**
 
-6. Machine Learning Modeling
-  - Some modelings were tested:
-    - Average model (baseline)
-    - Linear regression
-    - Linear regression regularized (Lasso)
+![https://user-images.githubusercontent.com/68928802/137230723-1d8568a2-df46-43af-a1e8-50b81dcb5a3d.png](https://user-images.githubusercontent.com/68928802/137230723-1d8568a2-df46-43af-a1e8-50b81dcb5a3d.png)
+
+Lojas devem vender mais no segundo semestre do ano ->
+
+**VERDADEIRO**
+
+![https://user-images.githubusercontent.com/68928802/137230048-df39c14e-a605-4591-a13d-2caa03fddf8d.png](https://user-images.githubusercontent.com/68928802/137230048-df39c14e-a605-4591-a13d-2caa03fddf8d.png)
+
+Lojas devem vender menos após o décimo dia de cada mês ->
+
+**VERDADEIRO**
+
+![https://user-images.githubusercontent.com/68928802/137230050-33aeb018-e2b9-4c96-861c-a2b3e4ce4163.png](https://user-images.githubusercontent.com/68928802/137230050-33aeb018-e2b9-4c96-861c-a2b3e4ce4163.png)
+
+1. Preparação dos dados
+- Rescala dos dados com o Robust e MinMax scaler, utilizando o pickle para evitar vazamento de dados na produção
+- Label encoding
+- Transformação de natureza das features de tempo
+1. Seleção de feature
+- Separação dos dados em blocos de 6 semanas para possibilitar a validação cruzada
+- seleção de features com Botura
+1. Modelos de machine learning
+- Modelos testados:
+    - Modele de média (baseline, praticado atualmente)
+    - Regressão linear
+    - Regressão linear regularizada (Lasso)
     - Random forest regressor
     - XGBoost regressor
-  - Metrics used to measure performance
+- Métricas usadas para medir a perfomance dos modelos:
     - MAE
     - MAPE
     - RMSE
 
-Even though XGBoost is has not best performance it was chosen because is smaller and flexible when it comes to fine tuning.
+Embora a XGBoost não é o modelo que melhor performou, foi o escolhido por conta de sua flexibilidade quando se trata de hiperparametrização.
 
-![Screenshot from 2021-10-13 21-49-03](https://user-images.githubusercontent.com/68928802/137232262-7f3066de-06a0-4996-98a3-656a341f7f33.png)
+![https://user-images.githubusercontent.com/68928802/137232262-7f3066de-06a0-4996-98a3-656a341f7f33.png](https://user-images.githubusercontent.com/68928802/137232262-7f3066de-06a0-4996-98a3-656a341f7f33.png)
 
-7. Fine Tunning
-  - Random Search was used.
+1. Fine Tunning
+- Foi utilizado Random Search.
 
-Result after the fine tuning
-![Screenshot from 2021-10-13 22-08-41](https://user-images.githubusercontent.com/68928802/137233626-13a8b0b4-9207-4aa0-98f2-82e5ae1b32ee.png)
+Resultado após a hiperparametrização
 
-8. Error Translation
+![https://user-images.githubusercontent.com/68928802/137233626-13a8b0b4-9207-4aa0-98f2-82e5ae1b32ee.png](https://user-images.githubusercontent.com/68928802/137233626-13a8b0b4-9207-4aa0-98f2-82e5ae1b32ee.png)
 
-  - Top 5 predictions 
+1. Tradução do erro
+- Top 5 previsões
 
-![Screenshot from 2021-10-14 09-34-31](https://user-images.githubusercontent.com/68928802/137318676-be260f4f-161e-4a32-85d7-0ebd68354295.png) 
+![https://user-images.githubusercontent.com/68928802/137318676-be260f4f-161e-4a32-85d7-0ebd68354295.png](https://user-images.githubusercontent.com/68928802/137318676-be260f4f-161e-4a32-85d7-0ebd68354295.png)
 
-  - Predictions and sales along the 6 weeks and error rate, where y axis = 1 is like 0% of error 
+- Previsões de vendas x vendas ao longo das 6 semanas e índice de erro ao longo das 6 semanas onde eixo y = 1 é 0% de erro.
 
-![Screenshot from 2021-10-14 09-35-41](https://user-images.githubusercontent.com/68928802/137318682-6d58e530-b50b-4049-849e-1fb8b0ec2f28.png)
+![https://user-images.githubusercontent.com/68928802/137318682-6d58e530-b50b-4049-849e-1fb8b0ec2f28.png](https://user-images.githubusercontent.com/68928802/137318682-6d58e530-b50b-4049-849e-1fb8b0ec2f28.png)
 
-  - Absolute error dispersion 
+- Dispersão do erro absoluto
 
-![Screenshot from 2021-10-14 09-36-01](https://user-images.githubusercontent.com/68928802/137318685-3c180e88-4b94-4798-9e96-e3762358f5bb.png)
+![https://user-images.githubusercontent.com/68928802/137318685-3c180e88-4b94-4798-9e96-e3762358f5bb.png](https://user-images.githubusercontent.com/68928802/137318685-3c180e88-4b94-4798-9e96-e3762358f5bb.png)
 
-
-9. Telegram Bot
-  - To access it, just click below 
+1. Bot no Telegram
+- Para acessá-lo, basta clicar abaixo
 
 [<img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/>](https://t.me/das_rossmann_prediction_bot)
 
-  - How to use it:
-    - choose one of the command options below and send it to the bot
+- Modo de usar:
+    - Escolha um dos comandos abaixo e envie-o ao bot
 
-![Screenshot from 2021-09-29 21-20-13](https://user-images.githubusercontent.com/68928802/137385998-b978c56b-4776-4599-993b-888aa8109a3d.png)
+![https://user-images.githubusercontent.com/68928802/137385998-b978c56b-4776-4599-993b-888aa8109a3d.png](https://user-images.githubusercontent.com/68928802/137385998-b978c56b-4776-4599-993b-888aa8109a3d.png)
 
+## Próximos passos
 
-## Next Steps
-- Algorithm
-  - In the next cycle new features such as holidays will be tested.
-  - Also, a random forest regressor will be tested.
-- Business
-  - CEO and sales managers will follow this numbers closely and act accordingly with the real sales numbers.
+- Algorítmo
+    - No próximo ciclo novas features como "feriados" serão testadas.
+    - Assim como a hiperparametrização de outros modelos, Random Forest Regressor é uma opção.
+- Negócio
+    - O CEO e os gerentes de vendas acompanharão de perto os números e agir de acordo com as variações dos números reais de vendas.
 
-## Lessons Learned
-The main learning with this project is that it is important to plan the solution step by step. Respecting the order things should happen. Take a deep breath and understand the problem before start coding is the key. 
+## Lições aprendidas
 
-I also learned that a project is made in cicles, I will not create the perfect solution at the right first try.
-Technically, I learned how to analyse data and prepare it to the modeling step. To do it, I used python and its libraries such as Pandas, Numpy, Matplotlib, Seaborn and many others. 
+A principal lição aprendida com este projeto é que é muito importante planejar a solução passo a passo. Respeitando a ordem em que as coisas acontecem. Respirar fundo e entender o problema antes de iniciar a codificar é a chave.
 
-Modeling also needs attention, as it can overfit or even underfit if you do not read the errors carefully. Trying different regressor models allow me to compare then and see what I can improve in next cycle.
-And last but not least, deploy this solution with flask, heroku and telegram bot was a very satisfying way to finish this great project.
+Outra lição é que o projeto é feito em ciclos, a solução perfeita não será criada no primeiro ciclo.
+Tecnicamente, eu aprendi a analisar e preparar os dados para a modelagem. Para fazer isso, utilizei bibliotecas como Pandas, Numpy, Matplotlib e Seaborn.
 
+Modelar também precisa de atenção, podem ocorrer sobreajuste ou sobajuste do modelo se os erros não forem interpretados cuidadosamente.
+Testar diferentes modelos permite compará-los para optar pelo mais adequado no momento. E já deixar uma ideia do que pode ser feito no próximo ciclo.
+E por último mas não menos importante, publicar o modelo com aplicativos flask e o bot no telegram foi um modo satisfatório de terminar este bom projeto. Pois é uma forma simples e familiar ao usuário final de acessar a solução.
 
-Thank you for reading this project.
-Any doubt or suggestion, just contact me:
+Bom, obrigado por ler este projeto.
+Qualquer dúvida ou sugestão, só me contatar:
 
 [<img alt="Denny Profile" src="https://img.shields.io/badge/-LinkedIn-blue?style=for-the-badge&logo=linkedin"/>](https://linkedin.com/in/dennydaspinelli)
