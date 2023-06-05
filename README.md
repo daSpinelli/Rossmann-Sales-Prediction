@@ -14,12 +14,20 @@ Os dados foram publicados em uma [competição do kaggle](https://www.kaggle.com
 
 O projeto é parte da [Comunidade DS](https://sejaumdatascientist.com/inscricao-lives-comunidade-ds).
 
+<<<<<<< HEAD
 ---
+=======
+But, after the kick-off meeting with the CEO where more questions about the problem were made we agreed that a full year prediction do not give us time to react to bad news. And also, the results will be reported quarterly, what makes a full year prediction useless. Therefore, was decided that a 6 weeks prediction will fit better into this scenario. It will be possible to notice significant variances and act to minimize the loss if necessary.
+>>>>>>> d4485b9 (final commit - telegram bot online)
 
 ## Contexto
 
+<<<<<<< HEAD
 A Rossmann é uma das maiores redes de drogarias na Europa com mais de 50k+ funcionários e 4k+ lojas.
 Contudo, o crescimento mostrado durante a reunião anual onde os gerentes regionais apresentam ao CEO o plano de vendas para o próximo ano não é compatível com a grandeza da Rossmann. Então, para estabelecer uma nova métrica para medir a performance das vendas, o CEO pediu aos gerentes uma previsão de vendas para o próximo trimestre. Atualmente, o crescimento projetado pelos times de vendas é apenas uma média semanal das vendas passadas.
+=======
+So, from now on a challenge is settled, create this prediction to be used as a guideline to the annual sales plan. It will not only avoid loss but also increase the gain with early decisions.
+>>>>>>> d4485b9 (final commit - telegram bot online)
 
 Mas, após a reunião inicial com o CEO onde mais questões sobre o problema foram levantadas, houve um concenso de que a previsão de um trimestre inteiro não dá tempo de reação perante más notícias já que os resultados são reportados a cada trimestre. Portanto, foi decidido que uma previsão de 6 semanas se encaixará melhor neste cenário. Assim, será possível notar variações significativas e agir para minimizar perdas caso necessário.
 
@@ -123,7 +131,7 @@ Resultado após a hiperparametrização
 ![https://user-images.githubusercontent.com/68928802/137318685-3c180e88-4b94-4798-9e96-e3762358f5bb.png](https://user-images.githubusercontent.com/68928802/137318685-3c180e88-4b94-4798-9e96-e3762358f5bb.png)
 
 1. Bot no Telegram
-- Para acessá-lo, basta clicar abaixo
+- Para acessá-lo, ~~basta clicar abaixo~~ ***(Bot deactivated until the next cycle)***
 
 [<img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/>](https://t.me/das_rossmann_prediction_bot)
 
