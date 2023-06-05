@@ -131,7 +131,7 @@ Resultado após a hiperparametrização
 ![https://user-images.githubusercontent.com/68928802/137318685-3c180e88-4b94-4798-9e96-e3762358f5bb.png](https://user-images.githubusercontent.com/68928802/137318685-3c180e88-4b94-4798-9e96-e3762358f5bb.png)
 
 1. Bot no Telegram
-- Para acessá-lo, ~~basta clicar abaixo~~ ***(Bot deactivated until the next cycle)***
+- Para acessá-lo, ~~basta clicar abaixo~~ ***(Bot desativado até o fim do próximo ciclo)***
 
 [<img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/>](#)
 
