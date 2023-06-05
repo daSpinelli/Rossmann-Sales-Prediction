@@ -133,7 +133,7 @@ Resultado após a hiperparametrização
 1. Bot no Telegram
 - Para acessá-lo, ~~basta clicar abaixo~~ ***(Bot deactivated until the next cycle)***
 
-[<img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/>](https://t.me/das_rossmann_prediction_bot)
+[<img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/>](#)
 
 - Modo de usar:
     - Escolha um dos comandos abaixo e envie-o ao bot
